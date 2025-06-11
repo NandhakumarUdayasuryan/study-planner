@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.logo {
+  transition: filter 300ms;
+  border-radius: 35px;
+  filter: brightness(1.8);
+}
+.setting-icon {
+    width: 24px;
+    height: auto;
+    display: inline-block;
+    vertical-align: sub;
+}
