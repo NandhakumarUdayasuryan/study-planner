@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 const AddTask = () => {
     const [task, setTask] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [priority, setPriority] = useState('medium');
+    const [priority, setPriority] = useState('');
     const [action, setAction] = useState('');
+
+    const [alertMessage, setAlertMessage] = useState('');
     
     
     const navigate = useNavigate();
@@ -21,13 +23,13 @@ const AddTask = () => {
         // For now, we'll just reset the form
         setTask('');
         setDueDate('');
-        setPriority('medium');
+        setPriority('');
     };  
 
     const handleSubmit = (e) => {
         console.log("Form action:", action);
         e.preventDefault(); // prevent page reload
-        if (!task || !dueDate) {
+        if (!task || !dueDate || !priority) {
             alert('Please fill in all fields');
             return;
         }
@@ -35,7 +37,7 @@ const AddTask = () => {
             task,
             dueDate,
             priority,
-            status: 'pending', // Default status for new tasks
+            status: 'Pending', // Default status for new tasks
             createdDate: new Date().toISOString(), // Store the current date as createdDate
             updatedDate: new Date().toISOString(), // Store the current date as updatedDate
             id: Date.now(), // Unique ID for the task, can be replaced with a better ID generation method
@@ -47,14 +49,25 @@ const AddTask = () => {
         if (action === "move") {
             // Redirect to another page
             navigate("/");
-        } else {
-            // Stay on the same page
-            console.log("Form submitted, but staying on the same page.");
         }
+        setAlertMessage('Task added successfully! You can continue adding more tasks.');
     };
+    useEffect(() => {
+        // Reset alert message after 3 seconds
+        if (alertMessage) {
+            const timer = setTimeout(() => {
+                setAlertMessage('');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [alertMessage]);
   return (
     <div className="p-6 shadow-md rounded-lg mx-auto max-w-7xl mt-8">
       <h2 className="text-2xl font-bold mb-8">Add New Task</h2>
+      <div className="mb-4 p-3 max-w-6/12 text-center mx-auto bg-green-200 text-gray-700 rounded-lg shadow-md hidden">
+        <p className="text-lg font-semibold">Task added successfullly!.</p>
+        <p className="text-sm">You can now view your task in the dashboard.</p>
+      </div>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="task-desc" className="block text-sm font-medium text-gray-200">Task</label>
@@ -63,8 +76,8 @@ const AddTask = () => {
             type="text"
             value={task}
             onChange={(e) => setTask(e.target.value)}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
-            placeholder="Enter task description"
+            className="mt-1 block w-full outline-0 border-gray-300 pl-1 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            placeholder="Enter task"
           />
         </div>
         <div>
@@ -74,7 +87,9 @@ const AddTask = () => {
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className={`mt-1 inline-block outline-0 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 ${
+              dueDate ? "" : "contrast-10"
+            }`}
           />
         </div>
         <div>
@@ -83,11 +98,14 @@ const AddTask = () => {
             id="priority"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            className={`mt-1 outline-0 block pr-2 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 placeholder:text-green-300 ${
+              priority ? "" : "text-gray-600"
+            }`}
           >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+            <option value="" disabled>Select Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
           </select>
         </div>
         <div className="mt-10 border-gray-500 border-t-1 pt-10 flex gap-4">
