@@ -21,14 +21,18 @@ const Setting = () => {
         Manage your tasks and application settings here.
       </p>
       <h2 className="text-xl font-semibold mb-4 mt-8">User Details</h2>
+      <p className="text-gray-300 pl-8 mb-4">
+        Update your user details to personalize your experience.
+      </p>
      
-      <div className="mb-4 text-gray-200 pl-8">
+      <div className="mb-4 text-gray-200 pl-8 ">
         <div className="py-2">
           <label className="font-bold text-gray-400" htmlFor="user-name">Name:</label>
           <input
             id="user-name"
             type="text"
-            onChange={(e)=> updateUserDetail(e.target.value, 'name')}
+            readOnly={true}
+            onBlur={(e)=> updateUserDetail(e.target.value, 'name')}
             value={userDetails.name}
             className="border-0 px-2 mx-2 w-10/12 outline-0"
             placeholder="Set your Name"
