@@ -24,26 +24,35 @@ git clone https://github.com/NandhakumarUdayasuryan/study-planner.git
 cd study-planner
 # Install dependencies
 npm install
-# App will run at http://localhost:3000 or 5173 depending on the tool.
+
+- App will run at http://localhost:3000 or 5173 depending on the tool.
+
 npm run dev
 
 
-public/*.fav
+```
 src/
-│
 ├── assest/*.png|*.svg
-├──├ pages/
-   ├── Header.jsx
-   ├── Dashboard.jsx
-   ├── AddTask.jsx
-   ├── Setting.jsx
+├──-├ pages/
+	├── Header.jsx
+	├── Dashboard.jsx
+	├── AddTask.jsx
+	├── Setting.jsx
 ├── components/
+	├── TaskCard.jsx
+├── contexts/
+	├── AlertContext.jsx
+	├── AlertProvider.jsx
+├── utils/-nofiles-
 ├── App.jsx
 ├── App.css
 ├── main.jsx
 ├── index.js
 ├── index.css
 index.html
+public/*.fav
+
+```
 
 # React + Vite
 

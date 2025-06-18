@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import studyPlannerLogo from '../assets/study-planner-logo.png';
-import settingIcon from '../assets/setting-icon.png';
+import settingIcon from '../assets/setting-icon.svg';
 const Header = () => {
   const getCurrentDateTime = () => {
     return new Date().toLocaleDateString('en-US', {

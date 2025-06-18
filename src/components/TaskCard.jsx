@@ -18,7 +18,7 @@ function TaskCard({ allTasks, setAllTasks, tasks, title }) {
         });
         localStorage.setItem("all-tasks", JSON.stringify(updatedTasks));
         setAllTasks(updatedTasks);
-        setAlertMessage({message:`Task(${affectedTask.task}) updated successfully!`, type: "success"});
+        setAlertMessage({message:`${fieldName.charAt(0).toUpperCase()}${fieldName.slice(1)} of (${affectedTask.task}) updated successfully!`, type: "success"});
     };
 
     const deleteTask = (affectedTask) => {
